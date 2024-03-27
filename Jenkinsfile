@@ -16,12 +16,13 @@ pipeline {
                 sh 'docker push nginx-image:latest'
             }
         } */
-        stage('CheckMiniKube'){
+        stage('CheckMiniKube and kubectl'){
             steps{
-                sh  'minikube status'
+                sh 'kubectl --help'
+                sh 'minikube status'
             }
         }
-        stage('Deploy to Kubernetes') {
+/*         stage('Deploy to Kubernetes') {
             
             steps {
                 // check minikube cluster status
@@ -46,7 +47,7 @@ pipeline {
             steps{
                 sh 'minikube service nginx-deployment --url'
             }
-        }
+        } */
     }
 
     post {
