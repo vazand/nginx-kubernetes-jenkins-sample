@@ -18,7 +18,8 @@ pipeline {
         } */
         stage('CheckMiniKube and kubectl'){
             steps{
-                sh 'kubectl --help'
+                //sh 'kubectl --help' - working 
+                sh 'minikube start'
                 sh 'minikube status'
             }
         }
