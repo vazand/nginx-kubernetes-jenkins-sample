@@ -16,12 +16,15 @@ pipeline {
                 sh 'docker push nginx-image:latest'
             }
         } */
-        
+        stage('CheckMiniKube'){
+            steps{
+                sh  'minikube status'
+            }
+        }
         stage('Deploy to Kubernetes') {
             
             steps {
                 // check minikube cluster status
-                echo "minikube status"
                 // Apply deployment.yaml using kubectl
                 script {
                     def process = sh(script: 'kubectl apply -f deployment.yaml', returnStdout: true)
@@ -30,9 +33,19 @@ pipeline {
                     }
                 }
                 // get the url of service app 
-                echo "minikube service nginx-deployment --url"
+                
             }
             
+        }
+        stage('Run Service'){
+            steps{
+                sh 'minikube service nginx-deployment'
+            }
+        }
+        stage("Get app Url"){
+            steps{
+                sh 'minikube service nginx-deployment --url'
+            }
         }
     }
 
