@@ -18,10 +18,10 @@ pipeline {
         } */
         
         stage('Deploy to Kubernetes') {
-            steps{
-                echo "minikube status"
-            }
+            
             steps {
+                // check minikube cluster status
+                echo "minikube status"
                 // Apply deployment.yaml using kubectl
                 script {
                     def process = sh(script: 'kubectl apply -f deployment.yaml', returnStdout: true)
@@ -29,10 +29,10 @@ pipeline {
                         error 'Deployment failed!'
                     }
                 }
-            }
-            steps{
+                // get the url of service app 
                 echo "minikube service nginx-deployment --url"
             }
+            
         }
     }
 
