@@ -16,7 +16,11 @@ pipeline {
                 sh 'docker push nginx-image:latest'
             }
         } */
+        
         stage('Deploy to Kubernetes') {
+            steps{
+                echo "minikube status"
+            }
             steps {
                 // Apply deployment.yaml using kubectl
                 script {
@@ -25,6 +29,9 @@ pipeline {
                         error 'Deployment failed!'
                     }
                 }
+            }
+            steps{
+                echo "minikube service nginx-deployment --url"
             }
         }
     }
