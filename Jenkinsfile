@@ -19,11 +19,10 @@ pipeline {
         stage('CheckMiniKube and kubectl'){
             steps{
                 //sh 'kubectl --help' - working 
-                sh 'minikube start'
                 sh 'minikube status'
             }
         }
-/*         stage('Deploy to Kubernetes') {
+        stage('Deploy to Kubernetes') {
             
             steps {
                 // check minikube cluster status
@@ -39,16 +38,16 @@ pipeline {
             }
             
         }
-        stage('Run Service'){
+        /* stage('Run Service'){
             steps{
                 sh 'minikube service nginx-deployment'
             }
-        }
+        } */
         stage("Get app Url"){
             steps{
                 sh 'minikube service nginx-deployment --url'
             }
-        } */
+        }
     }
 
     post {
